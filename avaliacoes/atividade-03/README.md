@@ -1,4 +1,4 @@
-# Atividade-03: Especificação do Gerenciamento de Processos
+# Especificação do Gerenciamento de Processos
 
 Para a especificação do gerenciador de processos de um simulador de sistema operacional, proponho a estruturação de um documento de especificação de projeto. Essa atividade será dividida em cinco partes principais, todas fundamentadas diretamente nos conceitos de gerenciamento de processos e threads abordados no Capítulo 2 do livro:
 
