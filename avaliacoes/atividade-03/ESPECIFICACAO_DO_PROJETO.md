@@ -4,7 +4,7 @@
 
 O projeto consiste em um simulador, executado em **modo usuário**, dos principais mecanismos de gerenciamento de processos de um sistema operacional. Os processos serão representados por estruturas de dados e executados de forma simulada por uma **CPU virtual** e um **relógio lógico**.
 
-### Restrições de implementação
+### Restrições de implementação:
 
 - **Linguagem:** Rust.
 - **Dependências:** apenas a biblioteca padrão (`std`), sem crates externas.
