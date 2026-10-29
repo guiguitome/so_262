@@ -24,13 +24,13 @@ class BankersAlgorithm:
         self.total_resources = list(total_resources) # E (Existing)
         self.allocation = copy.deepcopy(allocation_matrix) # C (Current)
         self.max_matrix = copy.deepcopy(max_matrix)
-
+        
         # Calcular matriz de Necessidade (Need = Max - Allocation)
         self.need = [
             [self.max_matrix[i][j] - self.allocation[i][j] for j in range(self.num_resources)]
             for i in range(self.num_processes)
         ]
-
+        
         # Calcular vetor de Recursos Disponíveis (A = E - soma(C))
         self.available = list(self.total_resources)
         for j in range(self.num_resources):
@@ -66,6 +66,7 @@ class BankersAlgorithm:
         safe_sequence = []
 
         if verbose:
+            print('Aluno: Guilherme Tomé Frazão')
             print("\n[VERIFICAÇÃO DE ESTADO SEGURO]")
             print(f"Vetor de Trabalho Inicial (Work/Disponível): {work}\n")
 
@@ -81,20 +82,20 @@ class BankersAlgorithm:
                             print(f"Passo {step}: {self.process_names[i]} pode ser atendido!")
                             print(f"  Necessidade {self.need[i]} <= Disponível {work}")
                             print(f"  {self.process_names[i]} executa e libera seus recursos alocados: {self.allocation[i]}")
-
+                        
                         # Processo executa e devolve seus recursos alocados
                         for j in range(self.num_resources):
                             work[j] += self.allocation[i][j]
-
+                        
                         finish[i] = True
                         safe_sequence.append(self.process_names[i])
                         found_candidate = True
                         step += 1
-
+                        
                         if verbose:
                             print(f"  Novo Vetor de Trabalho (Work): {work}\n")
                         break
-
+            
             if not found_candidate:
                 if verbose:
                     print("❌ ERRO: Nenhum processo pendente pode ser satisfeito com os recursos disponíveis.")
@@ -115,6 +116,7 @@ class BankersAlgorithm:
         """
         p_name = self.process_names[process_index]
         print("\n" + "#" * 70)
+        print('Aluno: Guilherme Tomé Frazão')
         print(f"SOLICITAÇÃO DE RECURSOS PELO PROCESSO {p_name}: {request_vector}")
         print("#" * 70)
 
@@ -162,14 +164,13 @@ class BankersAlgorithm:
 def run_demo():
     print("======================================================================")
     print("     SIMULAÇÃO DO ALGORITMO DO BANQUEIRO (TANENBAUM & BOS - CAP 6)    ")
-    print("     Aluno: Guilherme Tomé Frazão")
     print("======================================================================")
-
+    
     # Exemplo clássico com 5 processos (P0, P1, P2, P3, P4) e 3 tipos de recursos (R0, R1, R2)
     # Recursos Totais do Sistema: E = [10, 5, 7]
     process_names = ["P0", "P1", "P2", "P3", "P4"]
     total_resources = [10, 5, 7]
-
+    
     # Matriz de Alocação Atual (C)
     allocation = [
         [0, 1, 0],  # P0
@@ -178,7 +179,7 @@ def run_demo():
         [2, 1, 1],  # P3
         [0, 0, 2]   # P4
     ]
-
+    
     # Matriz de Necessidade Máxima (Max)
     max_matrix = [
         [7, 5, 3],  # P0
@@ -190,20 +191,20 @@ def run_demo():
 
     # Criar instância do simulador
     banker = BankersAlgorithm(process_names, total_resources, allocation, max_matrix)
-
+    
     # 1. Exibir estado inicial
     banker.display_state()
-
+    
     # 2. Testar se o estado inicial é seguro
     is_safe, sequence = banker.is_safe_state(verbose=True)
-
+    
     # 3. Teste de Caso 1: Requisição VÁLIDA e SEGURA feita pelo processo P1
     # P1 solicita [1, 0, 2]
     banker.request_resources(process_index=1, request_vector=[1, 0, 2])
     banker.display_state()
 
-    # 4. Teste de Caso 2: Requisição de P4 bloqueada por falta de recursos
-    # Após a concessão a P1, P4 pede 3 unidades de R0, mas há apenas 2.
+    # 4. Teste de Caso 2: Requisição INSEGURA feita pelo processo P4
+    # P4 solicita [3, 3, 0] (Excede disponível ou gera estado inseguro)
     banker.request_resources(process_index=4, request_vector=[3, 3, 0])
     banker.display_state()
 
