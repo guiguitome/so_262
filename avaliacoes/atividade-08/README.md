@@ -1,7 +1,5 @@
 # Atividade 8
 
-## Projeto de Sistemas Operacionais — Virtualização no Linux
-
 ### Orientações Gerais
 
 - Seguir as orientações presentes no arquivo anexo.
